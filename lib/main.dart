@@ -1,105 +1,62 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+const List<String> list = <String>['Kid', 'Teenager', 'Adult', 'Pregnant'];
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void main() => runApp(const DropdownButtonApp());
 
-  // This widget is the root of your application.
+class DropdownButtonApp extends StatelessWidget {
+  const DropdownButtonApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('DropdownButton Sample')),
+        body: Center(
+          child: Column(
+            children: [
+                 DropdownButtonExample(),
+            ],
+          ),
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-
-  final String title;
+class DropdownButtonExample extends StatefulWidget {
+  const DropdownButtonExample({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  int _value = 1;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
+class _DropdownButtonExampleState extends State<DropdownButtonExample> {
+  String dropdownValue = list.first;
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-
-        title: Text(widget.title),
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
       ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            DropdownButton(
-                value: _value,
-                items: [
-                  DropdownMenuItem(
-                    child: Text("Kid"),
-                    value: 1,
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Teenager"),
-                    value: 2,
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Adult"),
-                    value: 3,
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Pregnant"),
-                    value: 4,
-                  ),
-                ],
-
-                onChanged: (value) {
-                  setState(() {
-                   // _value = value;
-                  });
-                },
-                hint:Text("Select item")
-            ),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }
