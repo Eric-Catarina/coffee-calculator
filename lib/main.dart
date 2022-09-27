@@ -52,68 +52,73 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Column(
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Column(
-                      children: [
-                        DropdownButton<String>(
-                          value: dropdownValue,
-                          icon: const Icon(Icons.arrow_downward),
-                          elevation: 16,
-                          style: const TextStyle(color: Colors.deepPurple),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (String? value) {
-                            // This is called when the user selects an item.
-                            setState(() {
-                              dropdownValue = value!;
-                            });
-                          },
-                          items: list
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                        TextField(
-                          controller: coffeeController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: "Coffee (mg)",
-                            labelStyle: TextStyle(color: Colors.brown),
-                          ),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.brown, fontSize: 30.0),
-                        ),
-                        Container(
-                          width: 350,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Calculate',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                children: [
+                      Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
+
+                        children: [
+                          DropdownButton<String>(
+
+                            value: dropdownValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.brown),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.brown,
                             ),
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.brown),
+                            onChanged: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                dropdownValue = value!;
+                              });
+                            },
+                            items: list
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
                           ),
-                        ),
-                        Text(
-                          "You are fat !",
-                          style: TextStyle(color: Colors.brown, fontSize: 30),
-                        )
-                      ],
-                    ),
+                          TextField(
+                            controller: coffeeController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "Coffee (mg)",
+                              labelStyle: TextStyle(color: Colors.brown),
+                            ),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.brown, fontSize: 30.0),
+                          ),
+                          Container(
+                            width: 350,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Calculate',
+                                style:
+                                    TextStyle(fontSize: 24, color: Colors.white),
+                              ),
+                              style:
+                                  ElevatedButton.styleFrom(primary: Colors.brown),
+                            ),
+                          ),
+                          Text(
+                            "You are fat !",
+                            style: TextStyle(color: Colors.brown, fontSize: 30),
+                          )
+                        ],
+                      ),
+
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),
