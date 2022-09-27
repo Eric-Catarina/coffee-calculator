@@ -1,62 +1,132 @@
 import 'package:flutter/material.dart';
 
-const List<String> list = <String>['Kid', 'Teenager', 'Adult', 'Pregnant'];
+void main() {
+  runApp(IMC_Calc());
+}
 
-void main() => runApp(const DropdownButtonApp());
 
-class DropdownButtonApp extends StatelessWidget {
-  const DropdownButtonApp({super.key});
 
+
+
+class IMC_Calc extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('DropdownButton Sample')),
-        body: Center(
-          child: Column(
-            children: [
-                 DropdownButtonExample(),
-            ],
-          ),
-        ),
-      ),
+
+      home: MyHomePage(),
+
     );
+    throw UnimplementedError();
   }
 }
 
-class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
-
+class MyHomePage extends StatefulWidget{
   @override
-  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  String dropdownValue = list.first;
+class _MyHomePageState extends State<MyHomePage> {
+  String _infoText = "Inform your data";
 
+  void _resetTextFields(){
+
+  }
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
+
+    TextEditingController weightController = TextEditingController();
+    TextEditingController heightController = TextEditingController();
+
+    return Scaffold(
+      appBar: AppBar(
+
+        centerTitle: true,
+        title: Text("IMC Calculator"),
+        backgroundColor: Colors.brown,
+
+        actions: [
+          IconButton(onPressed:() {}, icon: Icon(Icons.refresh) )
+        ],
       ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      items: list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
+      body: Center(
+        child: Stack(
+          children: [
+            Opacity(
+              opacity: 0.3,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        'https://th.bing.com/th/id/OIP.nwG6SFXlTazUK6tt2RC-5gHaL2?pid=ImgDet&rs=1'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      children: [
+                        Icon(Icons.person_outline_rounded,
+                          color: Colors.brown,
+                          size: 140,),
+                        TextField(
+                          controller: weightController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: "Weight (kg)",
+                            labelStyle: TextStyle(
+                                color: Colors.brown
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.brown,
+                              fontSize: 30.0),
+                        ),
+
+                        TextField(
+                          controller: heightController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: "Height (cm)",
+                            labelStyle: TextStyle(
+                                color: Colors.brown
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.brown,
+                              fontSize: 30.0),
+                        ),
+                        Container(
+                          width: 350,
+                          child: ElevatedButton(onPressed: () {},
+                            child: Text('Calculate', style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.brown
+                            ),),
+
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.brown
+                            ),
+
+                          ),
+                        ),
+                        Text("You are fat !", style: TextStyle(
+                            color: Colors.brown,
+                            fontSize: 30)
+                          ,)
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
