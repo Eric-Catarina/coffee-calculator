@@ -21,21 +21,77 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _infoText = "Inform your data";
-
-  void _resetTextFields() {}
+  String _infoText = "Inform your Data";
   String dropdownValue = list.first;
+
+  TextEditingController coffeeController = TextEditingController();
+
+
+  void _resetTextFields() {
+    coffeeController.text = "";
+    setState(() {
+      _infoText = "Inform your Data";
+    });
+  }
+
+  void _calculateCoffe(){
+    setState(() {
+
+      print(list[0]);
+
+      int coffee = int.parse(coffeeController.text) ;
+
+      if(coffee > 400 ){
+        _infoText = "Over Caffeined !";
+      }
+      if(dropdownValue == dropdownValue[2]){
+        //Adults
+        if (coffee < 300){
+          _infoText = "You can get more Coffee!";
+        }
+        else if(coffee < 400 && coffee > 300){
+          _infoText = "Have Fun !";
+        }
+      }
+      if(dropdownValue == list[0] || dropdownValue == list[1]){
+        //Kids & Teenagers
+
+        if (coffee < 100){
+          _infoText = "You can get more Coffee!";
+        }
+        else if(coffee > 200){
+          _infoText = "Over Caffeined !";
+        }
+        else if(coffee < 200 && coffee > 100){
+          _infoText = "Have Fun !";
+        }
+      }
+      if(dropdownValue == list[3]){
+        //Pregnant
+        if (coffee < 200){
+          _infoText = "You can get more Coffee!";
+        }
+        else if(coffee > 300){
+          _infoText = "Over Caffeined !";
+        }
+        else if(coffee < 300 && coffee > 200){
+          _infoText = "Have Fun !";
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController coffeeController = TextEditingController();
+
+
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Coffee Calculator"),
         backgroundColor: Colors.brown,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.refresh))],
+        actions: [IconButton(onPressed: _resetTextFields, icon: Icon(Icons.refresh))],
       ),
       body: Center(
         child: Stack(
@@ -99,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             width: 350,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: _calculateCoffe,
                               child: Text(
                                 'Calculate',
                                 style:
@@ -110,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Text(
-                            "You are fat !",
+                            _infoText,
                             style: TextStyle(color: Colors.brown, fontSize: 30),
                           )
                         ],
