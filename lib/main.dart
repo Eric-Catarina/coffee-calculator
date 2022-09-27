@@ -34,6 +34,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  int _value = 1;
+
   void _incrementCounter() {
     setState(() {
 
@@ -55,6 +57,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            DropdownButton(
+                value: _value,
+                items: [
+                  DropdownMenuItem(
+                    child: Text("Kid"),
+                    value: 1,
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Teenager"),
+                    value: 2,
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Adult"),
+                    value: 3,
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Pregnant"),
+                    value: 4,
+                  ),
+                ],
+
+                onChanged: (value) {
+                  setState(() {
+                   // _value = value;
+                  });
+                },
+                hint:Text("Select item")
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),
