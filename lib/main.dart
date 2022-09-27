@@ -4,23 +4,18 @@ void main() {
   runApp(IMC_Calc());
 }
 
+const List<String> list = <String>['Kid', 'Teenager', 'Adult', 'Pregnant'];
 
-
-
-
-class IMC_Calc extends StatelessWidget{
+class IMC_Calc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       home: MyHomePage(),
-
     );
-    throw UnimplementedError();
   }
 }
 
-class MyHomePage extends StatefulWidget{
+class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -28,25 +23,19 @@ class MyHomePage extends StatefulWidget{
 class _MyHomePageState extends State<MyHomePage> {
   String _infoText = "Inform your data";
 
-  void _resetTextFields(){
+  void _resetTextFields() {}
+  String dropdownValue = list.first;
 
-  }
   @override
   Widget build(BuildContext context) {
-
-    TextEditingController weightController = TextEditingController();
-    TextEditingController heightController = TextEditingController();
+    TextEditingController coffeeController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
-
         centerTitle: true,
-        title: Text("IMC Calculator"),
+        title: Text("Coffee Calculator"),
         backgroundColor: Colors.brown,
-
-        actions: [
-          IconButton(onPressed:() {}, icon: Icon(Icons.refresh) )
-        ],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.refresh))],
       ),
       body: Center(
         child: Stack(
@@ -70,54 +59,56 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
                       children: [
-                        Icon(Icons.person_outline_rounded,
-                          color: Colors.brown,
-                          size: 140,),
-                        TextField(
-                          controller: weightController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: "Weight (kg)",
-                            labelStyle: TextStyle(
-                                color: Colors.brown
-                            ),
+                        DropdownButton<String>(
+                          value: dropdownValue,
+                          icon: const Icon(Icons.arrow_downward),
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.deepPurple),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.deepPurpleAccent,
                           ),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.brown,
-                              fontSize: 30.0),
+                          onChanged: (String? value) {
+                            // This is called when the user selects an item.
+                            setState(() {
+                              dropdownValue = value!;
+                            });
+                          },
+                          items: list
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
-
                         TextField(
-                          controller: heightController,
+                          controller: coffeeController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText: "Height (cm)",
-                            labelStyle: TextStyle(
-                                color: Colors.brown
-                            ),
+                            labelText: "Coffee (mg)",
+                            labelStyle: TextStyle(color: Colors.brown),
                           ),
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.brown,
-                              fontSize: 30.0),
+                          style: TextStyle(color: Colors.brown, fontSize: 30.0),
                         ),
                         Container(
                           width: 350,
-                          child: ElevatedButton(onPressed: () {},
-                            child: Text('Calculate', style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.brown
-                            ),),
-
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.brown
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Calculate',
+                              style:
+                                  TextStyle(fontSize: 24, color: Colors.white),
                             ),
-
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.brown),
                           ),
                         ),
-                        Text("You are fat !", style: TextStyle(
-                            color: Colors.brown,
-                            fontSize: 30)
-                          ,)
+                        Text(
+                          "You are fat !",
+                          style: TextStyle(color: Colors.brown, fontSize: 30),
+                        )
                       ],
                     ),
                   ),
