@@ -26,7 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  TextEditingController coffeeController = TextEditingController();
+  final coffeeController = TextEditingController();
+  final coffeQuantity = TextEditingController();
 
   void _resetTextFields() {
     coffeeController.text = "";
@@ -40,7 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       print(list[0]);
 
-      int coffee = int.parse(coffeeController.text);
+      if (coffeeController.text.isEmpty){
+        coffeeController.text= '0';
+      }
+      double coffee = double.parse(coffeeController.text);
 
       if (coffee > 400) {
         _infoText = "Over Caffeined !";
@@ -136,7 +140,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Form(
                           key: formKey,
-                          child: TextField(
+                          child: TextFormField(
+                            validator: (value){
+                              if(value!.isEmpty) return "Insert the caffeine quantity";
+                              if(num.tryParse(value.toString()) == null) return "Only numbers";
+                              if(double.parse(value.toString()) < 0) return "How?";
+                            },
                             controller: coffeeController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
