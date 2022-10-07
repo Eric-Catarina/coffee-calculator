@@ -30,8 +30,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final coffeQuantity = TextEditingController();
 
   void _resetTextFields() {
-    coffeeController.text = "";
     setState(() {
+      coffeeController.text = "";
+
       formKey = GlobalKey<FormState>();
       _infoText = "Inform your Data";
     });
@@ -141,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Form(
                           key: formKey,
                           child: TextFormField(
-                            validator: (value){
+                            validator: (String? value){
                               if(value!.isEmpty) return "Insert the caffeine quantity";
                               if(num.tryParse(value.toString()) == null) return "Only numbers";
                               if(double.parse(value.toString()) < 0) return "How?";
@@ -159,7 +160,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         Container(
                           width: 350,
                           child: ElevatedButton(
-                            onPressed: _calculateCoffe,
+                            onPressed:(){
+                              if (formKey.currentState!.validate())_calculateCoffe;
+
+                            },
                             child: Text(
                               'Calculate',
                               style:
